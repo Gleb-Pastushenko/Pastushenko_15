@@ -1,38 +1,43 @@
 var way = [
     ['north', function () {
         way[i][0];
-        north()
+        return north()
     }],
     ['east', function () {
         way[i][0];
-        east()
+        return east()
     }],
     ['south', function () {
         way[i][0];
-        south()
+        return south()
     }],
     ['west', function () {
         way[i][0];
-        west()
+        return west()
     }]
 ];
 
-var i = 0, prev = 2, deadEnd = 0, iter = 0;
+var i = 0, prev = 2, deadEnd = 0, result;
 
-do {
+while (result != 'next' && result != 'end') {
     while (!isFree(way[i][0]) || i == prev && deadEnd < 4) {
         i++;
         deadEnd++;
         i = i % 4;
     }
-    iter++;
+
     deadEnd = 0;
     prev = (i + 2) % 4;
-    way[i][1]();
-    if (iter == 190) break;
-    clear();
     map();
+    result = way[i][1]();
     i = (i + 3) % 4;
-} while (true);
+}
 
-alert('TA-DAAAAA!!!!');
+
+if (result == 'next') {
+    alert('TA-DAAAAA!!!!');
+} else {
+    alert('I\'M FREE!!!');
+}
+
+result = "";
