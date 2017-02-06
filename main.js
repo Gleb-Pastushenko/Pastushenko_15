@@ -1,20 +1,8 @@
 var way = [
-    ['north', function () {
-        way[i][0];
-        return north()
-    }],
-    ['east', function () {
-        way[i][0];
-        return east()
-    }],
-    ['south', function () {
-        way[i][0];
-        return south()
-    }],
-    ['west', function () {
-        way[i][0];
-        return west()
-    }]
+    ['north', north],
+    ['east', east],
+    ['south', south],
+    ['west', west]
 ];
 
 var i = 0, prev = 2, deadEnd = 0, result;
