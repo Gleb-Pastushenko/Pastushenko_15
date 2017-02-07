@@ -7,7 +7,7 @@ var way = [
 
 var currentDirection = 0;
 var currentState = "";
-var stepDelay = 200;
+var stepDelay = 150;
 
 function turnLeft() {
     currentDirection = (currentDirection + 3) % 4;
