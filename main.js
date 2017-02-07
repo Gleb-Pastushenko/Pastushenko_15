@@ -5,27 +5,57 @@ var way = [
     ['west', west]
 ];
 
-var i = 0, prev = 2, deadEnd = 0, result;
+var currentDirection = 0;
+var currentState = "";
+var stepDelay = 200;
 
-while (result != 'next' && result != 'end') {
-    while (!isFree(way[i][0]) || i == prev && deadEnd < 4) {
-        i++;
-        deadEnd++;
-        i = i % 4;
+function turnLeft() {
+    currentDirection = (currentDirection + 3) % 4;
+}
+
+function turnRight() {
+    currentDirection = (currentDirection + 1) % 4;
+}
+
+function seekFreeLeft() {
+    turnLeft();
+
+    while (!isFree(way[currentDirection][0])) {
+        turnRight();
+    }
+}
+
+function step() {
+    map();
+    return way[currentDirection][1]();
+}
+
+function takeTheWall() {
+    while(isFree(way[currentDirection][0])) {
+        turnLeft();
     }
 
-    deadEnd = 0;
-    prev = (i + 2) % 4;
-    map();
-    result = way[i][1]();
-    i = (i + 3) % 4;
+    while(!isFree(way[currentDirection][0])) {
+        turnRight();
+    }
 }
 
 
-if (result == 'next') {
-    alert('TA-DAAAAA!!!!');
-} else {
-    alert('I\'M FREE!!!');
-}
+takeTheWall();
 
-result = "";
+var mainFunctionInterval = setInterval(mainFunction, stepDelay);
+
+function mainFunction() {
+    console.clear();
+    seekFreeLeft();
+
+    if ((currentState = step()) == "next") {
+        clearInterval(mainFunctionInterval);
+        alert("TA-DAAAAAA!!!");
+        mainFunctionInterval = setInterval(mainFunction, stepDelay);
+    }
+    else if (currentState != true) {
+        clearInterval(mainFunctionInterval);
+        alert("I'M FREEEEE!!!");
+    }
+}
